@@ -1,0 +1,7 @@
+CREATE TABLE IF NOT EXIST individuals (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, birthDate TEXT);
+CREATE TABLE IF NOT EXIST position (id INTEGER NOT NULL PRIMARY KEY, positionName TEXT NOT NULL);
+CREATE TABLE IF NOT EXIST employees (id INTEGER NOT NULL PRIMARY KEY, name TEXT NOT NULL, positionName TEXT NOT NULL, startDate TEXT NOT NULL, endDate TEXT, FOREIGN KEY (name) REFERENCES individuals(name), FOREIGN KEY (positionName) REFERENCES position(positionName));
+CREATE TABLE IF NOT EXIST premiosIncomLowLimit (id INTEGER NOT NULL PRIMARY KEY, positionName TEXT NOT NULL, limit INTEGER NULL, FOREIGN KEY (positionName) REFERENCES position(positionName));
+CREATE TABLE IF NOT EXIST premiosPercent (id INTEGER NOT NULL PRIMARY KEY, positionName TEXT NOT NULL, percent REAL NULL, FOREIGN KEY (positionName) REFERENCES position(positionName));
+CREATE TABLE IF NOT EXIST revenuePerDay (id INTEGER NOT NULL PRIMARY KEY, date TEXT NOT NULL UNIQUE, revenueCash REAL, revenueNonCash REAL);
+CREATE TABLE IF NOT EXIST employeesPerDay (id INTEGER NOT NULL PRIMARY KEY, date TEXT NOT NULL, name TEXT NOT NULL, positionName TEXT NOT NULL, FOREIGN KEY (name) REFERENCES individuals(name), FOREIGN KEY (positionName) REFERENCES position(positionName), CHECK (positionName IN (SELECT positionName FROM employees as emp WHERE emp.positionName = positionName)));
