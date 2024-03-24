@@ -23,3 +23,17 @@ S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 ]
 -.idea/sonarlint/securityhotspotstore/index.pb,8\8\88a9255124c95bdc913197c120a8d560edc59c8e
+_
+/src/main/java/org/example/model/Individual.java,4\4\44191b31a21c5e2189c7a2911c60a6e880f0348c
+]
+-src/main/java/org/example/model/position.java,2\d\2de649ae8ff2902ffb1530db8284305b1955dd64
+\
+,src/main/java/org/example/model/employe.java,5\9\591e0d6d9acb71afd7a8185097e00615381e1c9d
+i
+9src/main/java/org/example/model/PremiosIncomLowLimit.java,0\b\0b9b02d6871f8887fa47eca797c274fcbe84999b
+c
+3src/main/java/org/example/model/PremiosPercent.java,c\5\c556efe462d72297b8711cd06647da4e42a3a5aa
+b
+2src/main/java/org/example/model/RevenuePerDay.java,1\6\16699ad7cc2bc1dfbc6ded104e0d9c622a50c895
+d
+4src/main/java/org/example/model/EmployeesPerDay.java,d\9\d9c2bb8d05d64594520767862c000288a969dca0
