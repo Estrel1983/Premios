@@ -1,11 +1,13 @@
 package org.example.model;
 
+import java.text.SimpleDateFormat;
 import java.util.Date;
 
 public class Individual {
     private Integer id;
     private String name;
     private Date birthDate;
+    private static String DATE_FORMAT = "dd-MM-yyyy";
 
     public Individual(Integer id, String name, Date birthDate) {
         this.id = id;
@@ -40,5 +42,13 @@ public class Individual {
 
     public Date getBirthDate() {
         return birthDate;
+    }
+
+    public String getBirthDateAsString(){
+        return (new SimpleDateFormat(DATE_FORMAT)).format(this.birthDate);
+    }
+
+    public Object[] toObject(){
+        return new Object[]{this.name, (new SimpleDateFormat(DATE_FORMAT)).format(this.birthDate)};
     }
 }
