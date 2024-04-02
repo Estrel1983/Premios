@@ -5,4 +5,3 @@ CREATE TABLE IF NOT EXISTS premiosIncomLowLimit (id INTEGER NOT NULL PRIMARY KEY
 CREATE TABLE IF NOT EXISTS premiosPercent (id INTEGER NOT NULL PRIMARY KEY, positionName TEXT NOT NULL, percent REAL NULL, FOREIGN KEY (positionName) REFERENCES position(positionName));
 CREATE TABLE IF NOT EXISTS revenuePerDay (id INTEGER NOT NULL PRIMARY KEY, date TEXT NOT NULL UNIQUE, revenueCash REAL, revenueNonCash REAL);
 CREATE TABLE IF NOT EXISTS employeesPerDay (id INTEGER NOT NULL PRIMARY KEY, date TEXT NOT NULL, name TEXT NOT NULL, premio REAL, positionName TEXT NOT NULL, FOREIGN KEY (name) REFERENCES individuals(name), FOREIGN KEY (positionName) REFERENCES position(positionName));
-INSERT INTO individuals (id, name) VALUES (1, 'PETR')

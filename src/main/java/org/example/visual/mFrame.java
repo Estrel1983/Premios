@@ -1,8 +1,11 @@
 package org.example.visual;
 
+import org.example.visual.Individual.addEmployeeFrame;
+import org.example.visual.Individual.employeeListFrame;
+import org.example.visual.Individual.findEmployeeFrame;
+
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.*;
 
 public class mFrame extends JFrame {
     public mFrame() {

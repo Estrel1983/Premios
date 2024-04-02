@@ -1,7 +1,8 @@
-package org.example.visual;
+package org.example.visual.Individual;
 
 
 import com.toedter.calendar.JDateChooser;
+import org.example.visual.SuccessFrame;
 
 import javax.swing.*;
 import java.awt.*;
@@ -54,11 +55,10 @@ public class addEmployeeFrame extends JFrame {
         submitBut.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                if (!nameField.getText().isEmpty() && !(birthDate.getDate() == null)) {
+                if (!nameField.getText().isEmpty() && (birthDate.getDate() != null)) {
                     createNewEmployee(nameField.getText(), birthDate.getDate());
                     new SuccessFrame();
-                    nameField.setText("");
-                    birthDate.setDate(null);
+                    dispose();
                 }
                 else {
                     errorFrame("Одно из полей не заполнено");

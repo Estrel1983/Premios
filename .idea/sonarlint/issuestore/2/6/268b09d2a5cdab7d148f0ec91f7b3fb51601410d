@@ -1,5 +1,5 @@
 
 d
 java:S2095"GUse try-with-resources or close this "Statement" in a "finally" clause.(ĞˆĞ¥8¯ìº“ç1
-G	java:S106"+Replace this use of System.out by a logger.(ĞˆĞ¥8¥Æç1
-L	java:S106"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8§Æç1
+G	java:S106"+Replace this use of System.out by a logger.(ĞˆĞ¥8ôûçé1
+L	java:S106"+Replace this use of System.out by a logger.(©şêÜúÿÿÿÿ8·¼ğé1
