@@ -16,6 +16,7 @@ public class IndividualMapper {
     private static final String GET_MAX_ID_QUERY = "SELECT MAX(id) FROM %s";
     private static final String SELECT_ALL_QUERY = "SELECT * FROM %s ORDER BY name ASC";
     private static final String UPDATE_QUERY = "UPDATE %s SET name = ?, birthDate = ? WHERE id = ?";
+    private static final String SELECT_BY_NAME_QUERY = "SELECT * FROM %s WHERE name LIKE '%%%s%%' ORDER BY name ASC";
 
     private static final String SQL_DATE_FORMAT = "YYYY-MM-dd";
     private static final String JAVA_DATA_FORMAT = "yyyy-MM-dd";
@@ -61,5 +62,20 @@ public class IndividualMapper {
             return false;
         }
         return false;
+    }
+
+    public ArrayList <Individual> selectByNamePart(String namePart){
+        ArrayList <Individual> indList = new ArrayList<>();
+        try (Statement statement = conn.createStatement()){
+            ResultSet result = statement.executeQuery(String.format(SELECT_BY_NAME_QUERY, EMPLOYEE_TABLE_NAME, namePart));
+            while (result.next()){
+                indList.add(new Individual(result.getInt("id"), result.getString("name"),
+                        (new SimpleDateFormat(JAVA_DATA_FORMAT)).parse(result.getString("birthDate"))));
+            }
+        } catch (SQLException | ParseException e) {
+            return null;
+            //TODO
+        }
+        return indList;
     }
 }

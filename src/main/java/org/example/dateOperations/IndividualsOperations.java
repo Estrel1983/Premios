@@ -5,6 +5,7 @@ import org.example.model.Individual;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static org.example.visual.ErrorFrame.errorFrame;
 
@@ -44,5 +45,8 @@ public class IndividualsOperations {
                 errorFrame(INSERT_ERROR_MESSAGE);
                 throw new RuntimeException(INSERT_ERROR_MESSAGE);
             }
+    }
+    public static List<Individual> searchIndividualByName(String namePart){
+        return individualMapper.selectByNamePart(namePart);
     }
 }
