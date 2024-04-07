@@ -13,12 +13,12 @@ import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
 import java.util.ArrayList;
 
-import static org.example.dateOperations.IndividualsOperations.getIndividualList;
+import static org.example.dateOperations.IndividualsOperations.getList;
 import static org.example.dateOperations.IndividualsOperations.sirchIndividual;
 
-public class employeeListFrame extends JFrame {
+public class individualListFrame extends JFrame {
     private DefaultTableModel model;
-    public employeeListFrame(){
+    public individualListFrame(){
         JPanel mainPanel = new JPanel();
         setName("Список Физических лиц");
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -57,7 +57,7 @@ public class employeeListFrame extends JFrame {
         pack();
 
         addIndividButton.addActionListener(e -> {
-            addEmployeeFrame frame = new addEmployeeFrame();
+            addIndividualFrame frame = new addIndividualFrame();
             frame.setVisible(true);
             frame.addWindowListener(new WindowAdapter() {
                 @Override
@@ -73,9 +73,9 @@ public class employeeListFrame extends JFrame {
     }
     private JPopupMenu createPopupMenu(JTable individTable) {
         JPopupMenu jPopupMenu = new JPopupMenu();
-        JMenuItem createItem = new JMenuItem("Добавить нового");
+        JMenuItem createItem = new JMenuItem("Добавить");
         createItem.addActionListener(e -> {
-            addEmployeeFrame frame = new addEmployeeFrame();
+            addIndividualFrame frame = new addIndividualFrame();
             frame.setVisible(true);
             frame.addWindowListener(new WindowAdapter() {
                 @Override
@@ -98,7 +98,7 @@ public class employeeListFrame extends JFrame {
         model = new DefaultTableModel();
         model.addColumn("Имя");
         model.addColumn("Дата рождения");
-        ArrayList<Individual> indList = getIndividualList();
+        ArrayList<Individual> indList = getList();
         indList.stream().forEach(e -> model.addRow(e.toObject()));
         table.setModel(model);
         table.setGridColor(Color.LIGHT_GRAY);
@@ -115,7 +115,7 @@ public class employeeListFrame extends JFrame {
         return table;
     }
     private void refreshTable() {
-        ArrayList<Individual> indList = getIndividualList(); // Получаем обновленные данные
+        ArrayList<Individual> indList = getList(); // Получаем обновленные данные
         model.setRowCount(0);
         indList.stream().forEach(e -> model.addRow(e.toObject()));
     }
@@ -123,7 +123,7 @@ public class employeeListFrame extends JFrame {
         int selectedRow = individTable.getSelectedRow();
         if (selectedRow < 0)
             return;
-        editEmployeeFrame frame = new editEmployeeFrame(sirchIndividual((String) individTable.getValueAt(selectedRow, 0),
+        editIndividualFrame frame = new editIndividualFrame(sirchIndividual((String) individTable.getValueAt(selectedRow, 0),
                 (String) individTable.getValueAt(selectedRow, 1)));
         frame.setVisible(true);
         frame.addWindowListener(new WindowAdapter() {

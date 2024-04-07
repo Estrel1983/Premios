@@ -1,5 +1,7 @@
 package org.example.model;
 
+import org.example.utils.Constants;
+
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -7,7 +9,6 @@ public class Individual {
     private Integer id;
     private String name;
     private Date birthDate;
-    private static String DATE_FORMAT = "dd-MM-yyyy";
 
     public Individual(Integer id, String name, Date birthDate) {
         this.id = id;
@@ -45,10 +46,10 @@ public class Individual {
     }
 
     public String getBirthDateAsString(){
-        return (new SimpleDateFormat(DATE_FORMAT)).format(this.birthDate);
+        return (new SimpleDateFormat(Constants.DATE_FORMAT_FOR_TABLE)).format(this.birthDate);
     }
 
     public Object[] toObject(){
-        return new Object[]{this.name, (new SimpleDateFormat(DATE_FORMAT)).format(this.birthDate)};
+        return new Object[]{this.name, (new SimpleDateFormat(Constants.DATE_FORMAT_FOR_TABLE)).format(this.birthDate)};
     }
 }

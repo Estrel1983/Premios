@@ -13,9 +13,9 @@ import java.util.Locale;
 import static org.example.dateOperations.IndividualsOperations.createNewEmployee;
 import static org.example.visual.ErrorFrame.errorFrame;
 
-public class addEmployeeFrame extends JFrame {
+public class addIndividualFrame extends JFrame {
     private static final String DATE_FORMAT = "dd.MM.yyyy";
-    public addEmployeeFrame(){
+    public addIndividualFrame(){
         JPanel mainPanel = new JPanel();
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         JPanel addEmployeePanel = new JPanel(new GridBagLayout());

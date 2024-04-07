@@ -1,5 +1,7 @@
 package org.example.model;
 
+import java.text.SimpleDateFormat;
+
 public class position {
     private Integer id;
     private String positionName;
@@ -27,5 +29,8 @@ public class position {
 
     public void setPositionName(String positionName) {
         this.positionName = positionName;
+    }
+    public Object[] toObject(){
+        return new Object[]{this.positionName};
     }
 }

@@ -1,28 +1,36 @@
 package org.example.model;
 
+import org.example.utils.Constants;
+
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
-public class employe {
+public class Employe implements TableModel{
     private Integer id;
     private String name;
     private String positionName;
     private Date startDate;
     private Date endDate;
+    private static final int TABLE_SIZE = 4;
+    private static final ArrayList<String> TABLE_TITLE = new ArrayList(Arrays.asList( "Имя", "Должность", "Дата приема", "Дата увольнения"));
 
-    public employe(Integer id, String name, String positionName, Date startDate) {
+    public Employe(Integer id, String name, String positionName, Date startDate) {
         this.id = id;
         this.name = name;
         this.positionName = positionName;
         this.startDate = startDate;
     }
 
-    public employe(String name, String positionName, Date startDate) {
+    public Employe(String name, String positionName, Date startDate) {
         this.name = name;
         this.positionName = positionName;
         this.startDate = startDate;
     }
+    public Employe(){}
 
-    public employe(Integer id, String name, String positionName, Date startDate, Date endDate) {
+    public Employe(Integer id, String name, String positionName, Date startDate, Date endDate) {
         this.id = id;
         this.name = name;
         this.positionName = positionName;
@@ -68,5 +76,20 @@ public class employe {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+
+    @Override
+    public int getTableSize() {
+        return TABLE_SIZE;
+    }
+
+    @Override
+    public ArrayList<String> getTitles() {
+        return TABLE_TITLE;
+    }
+    public Object[] toObject(){
+        return new Object[]{this.name, this.positionName,
+                (new SimpleDateFormat(Constants.DATE_FORMAT_FOR_TABLE)).format(this.startDate),
+                this.endDate == null ? "" : (new SimpleDateFormat(Constants.DATE_FORMAT_FOR_TABLE)).format(this.endDate)};
     }
 }
