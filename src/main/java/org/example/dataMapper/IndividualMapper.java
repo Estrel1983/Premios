@@ -1,6 +1,7 @@
 package org.example.dataMapper;
 
 import org.example.model.Individual;
+import org.example.utils.Constants;
 
 import java.sql.*;
 import java.text.ParseException;
@@ -11,21 +12,18 @@ import static org.example.db.DateBaseOperation.getDbConnection;
 
 public class IndividualMapper {
     private static Connection conn = getDbConnection();
-    private static final String EMPLOYEE_TABLE_NAME = "individuals";
     private static final String INSERT_QUERY = "INSERT INTO %s (id, name, birthDate) VALUES (%s, '%s', '%s')";
-    private static final String GET_MAX_ID_QUERY = "SELECT MAX(id) FROM %s";
-    private static final String SELECT_ALL_QUERY = "SELECT * FROM %s ORDER BY name ASC";
     private static final String UPDATE_QUERY = "UPDATE %s SET name = ?, birthDate = ? WHERE id = ?";
+    private static final String SELECT_BY_NAME_QUERY = "SELECT * FROM %s WHERE name LIKE '%%%s%%' ORDER BY name ASC";
+    private static final String SORT_FIELD = "name";
 
-    private static final String SQL_DATE_FORMAT = "YYYY-MM-dd";
-    private static final String JAVA_DATA_FORMAT = "yyyy-MM-dd";
     public boolean insert (Individual individual){
         try (Statement statement = conn.createStatement()){
-            SimpleDateFormat dateFormat = new SimpleDateFormat(SQL_DATE_FORMAT);
-            ResultSet resultSet = statement.executeQuery(String.format(GET_MAX_ID_QUERY, EMPLOYEE_TABLE_NAME));
+            SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
+            ResultSet resultSet = statement.executeQuery(String.format(Constants.GET_MAX_ID_QUERY, Constants.INDIVIDUALS_TABLE_NAME));
             resultSet.next();
             int nextId = resultSet.getInt(1) +1;
-            if ((statement.executeUpdate(String.format(INSERT_QUERY, EMPLOYEE_TABLE_NAME, nextId,
+            if ((statement.executeUpdate(String.format(INSERT_QUERY, Constants.INDIVIDUALS_TABLE_NAME, nextId,
                     individual.getName(), dateFormat.format(individual.getBirthDate())))) > 0) {
                 return true;
             }
@@ -37,10 +35,10 @@ public class IndividualMapper {
     public ArrayList <Individual> selectAll(){
         ArrayList <Individual> indList = new ArrayList<>();
         try (Statement statement = conn.createStatement()){
-            ResultSet result = statement.executeQuery(String.format(SELECT_ALL_QUERY, EMPLOYEE_TABLE_NAME));
+            ResultSet result = statement.executeQuery(String.format(Constants.SELECT_ALL_QUERY, Constants.INDIVIDUALS_TABLE_NAME, SORT_FIELD));
             while (result.next()){
                 indList.add(new Individual(result.getInt("id"), result.getString("name"),
-                        (new SimpleDateFormat(JAVA_DATA_FORMAT)).parse(result.getString("birthDate"))));
+                        (new SimpleDateFormat(Constants.JAVA_FROM_SQL_DATA_FORMAT)).parse(result.getString("birthDate"))));
             }
 
         }catch (SQLException | ParseException e) {
@@ -50,8 +48,8 @@ public class IndividualMapper {
         return indList;
     }
     public boolean update(Individual individual){
-        SimpleDateFormat dateFormat = new SimpleDateFormat(SQL_DATE_FORMAT);
-        try (PreparedStatement updateStatement = conn.prepareStatement(String.format(UPDATE_QUERY, EMPLOYEE_TABLE_NAME));){
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
+        try (PreparedStatement updateStatement = conn.prepareStatement(String.format(UPDATE_QUERY, Constants.INDIVIDUALS_TABLE_NAME));){
             updateStatement.setString(1, individual.getName());
             updateStatement.setString(2, dateFormat.format(individual.getBirthDate()));
             updateStatement.setInt(3, individual.getId());
@@ -61,5 +59,20 @@ public class IndividualMapper {
             return false;
         }
         return false;
+    }
+
+    public ArrayList <Individual> selectByNamePart(String namePart){
+        ArrayList <Individual> indList = new ArrayList<>();
+        try (Statement statement = conn.createStatement()){
+            ResultSet result = statement.executeQuery(String.format(SELECT_BY_NAME_QUERY, Constants.INDIVIDUALS_TABLE_NAME, namePart));
+            while (result.next()){
+                indList.add(new Individual(result.getInt("id"), result.getString("name"),
+                        (new SimpleDateFormat(Constants.JAVA_FROM_SQL_DATA_FORMAT)).parse(result.getString("birthDate"))));
+            }
+        } catch (SQLException | ParseException e) {
+            return null;
+            //TODO
+        }
+        return indList;
     }
 }

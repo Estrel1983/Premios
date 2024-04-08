@@ -31,5 +31,13 @@ public class SuccessFrame extends JFrame{
         getContentPane().add(mainPanel);
         setSize(400, 150);
         setVisible(true);
+
+        Timer timer = new Timer(5000, e -> {
+            if (isVisible()) {
+                dispose();
+            }
+        });
+        timer.setRepeats(false); // Остановить таймер после первого срабатывания
+        timer.start();
     }
 }

@@ -13,8 +13,8 @@ import java.util.Locale;
 
 import static org.example.dateOperations.IndividualsOperations.saveIndividual;
 
-public class editEmployeeFrame extends JFrame {
-    public editEmployeeFrame (Individual individual){
+public class editIndividualFrame extends JFrame {
+    public editIndividualFrame(Individual individual){
         JPanel mainPanel = new JPanel();
         setName("Редактирование данных о физ. лице");
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
