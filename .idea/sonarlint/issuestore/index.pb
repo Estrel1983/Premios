@@ -13,14 +13,6 @@ b
 2src/main/java/org/example/visual/SuccessFrame.java,4\d\4d2cf6ccdcbd7741625587ffa481ffa6a6631029
 _
 /src/main/java/org/example/model/Individual.java,4\4\44191b31a21c5e2189c7a2911c60a6e880f0348c
-r
-Bsrc/main/java/org/example/visual/Individual/employeeListFrame.java,2\b\2b9ac015280d031b41b39e918ddb6293ae10a0f3
-r
-Bsrc/main/java/org/example/visual/Individual/findEmployeeFrame.java,9\6\96e41144deec4914f8353a44483843cfe4e218ab
-r
-Bsrc/main/java/org/example/visual/Individual/editEmployeeFrame.java,8\6\868ad2497ded2a0ed044fe43842daf11bb68359c
-q
-Asrc/main/java/org/example/visual/Individual/addEmployeeFrame.java,b\a\ba676e8f5a39e1ba1505b1f1a902c259ac63f6cd
 S
 #.idea/sonarlint/issuestore/index.pb,9\f\9fe84ebb15faf917b7def6236dba604453cc61e0
 ]
@@ -35,8 +27,6 @@ p
 -src/main/java/org/example/model/position.java,2\d\2de649ae8ff2902ffb1530db8284305b1955dd64
 p
 @src/main/java/org/example/dateOperations/positionsOperation.java,0\8\088c564e1e2b9d76208014d266fce4d9ddc071a7
-_
-/src/main/java/org/example/utils/Constancts.java,3\d\3dd664a4f935bb7a1281a324d28d980f288fb802
 ^
 .src/main/java/org/example/utils/Constants.java,4\c\4c7a60f4a3b362772e33a979237dab00859781b9
 h
@@ -57,10 +47,6 @@ _
 /src/main/java/org/example/model/TableModel.java,7\1\71223337adee5c1f61a813862a445768caf3b455
 \
 ,src/main/java/org/example/model/employe.java,5\9\591e0d6d9acb71afd7a8185097e00615381e1c9d
-r
-Bsrc/main/java/org/example/dateOperations/Interface/Operations.java,a\d\ad8fc11619157ef6b0809098d56096f56b426c1b
-z
-Jsrc/main/java/org/example/dateOperations/Interface/employeeOperations.java,9\e\9ec743edd233f5edb500901ffe454a75c706a919
 p
 @src/main/java/org/example/dateOperations/employeeOperations.java,6\3\63cf84b430d9b9e45e21d9d79bfb569499f1dcfa
 p
