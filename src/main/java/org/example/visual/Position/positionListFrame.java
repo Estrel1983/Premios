@@ -1,6 +1,6 @@
 package org.example.visual.Position;
 
-import org.example.model.position;
+import org.example.model.Position;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -69,7 +69,7 @@ public class positionListFrame extends JFrame {
         JTable table = new JTable();
         model = new DefaultTableModel();
         model.addColumn("Должность");
-        ArrayList<position> posList = getList();
+        ArrayList<Position> posList = getList();
         posList.stream().forEach(e -> model.addRow(e.toObject()));
         table.setModel(model);
         table.setGridColor(Color.LIGHT_GRAY);
@@ -122,7 +122,7 @@ public class positionListFrame extends JFrame {
     }
 
     private void refreshTable() {
-        ArrayList<position> posList = getList(); // Получаем обновленные данные
+        ArrayList<Position> posList = getList(); // Получаем обновленные данные
         model.setRowCount(0);
         posList.stream().forEach(e -> model.addRow(e.toObject()));
     }

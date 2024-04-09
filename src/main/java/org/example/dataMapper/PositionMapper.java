@@ -1,12 +1,9 @@
 package org.example.dataMapper;
 
-import org.example.model.Individual;
-import org.example.model.position;
+import org.example.model.Position;
 import org.example.utils.Constants;
 
 import java.sql.*;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 import static org.example.db.DateBaseOperation.getDbConnection;
@@ -17,12 +14,12 @@ public class PositionMapper {
     private static final String UPDATE_QUERY = "UPDATE %s SET positionName = ? WHERE id = ?";
     private static final String SORT_FIELD = "positionName";
 
-    public ArrayList<position> selectAll() {
-        ArrayList<position> posList = new ArrayList<>();
+    public ArrayList<Position> selectAll() {
+        ArrayList<Position> posList = new ArrayList<>();
         try (Statement statement = conn.createStatement()) {
             ResultSet result = statement.executeQuery(String.format(Constants.SELECT_ALL_QUERY, Constants.POSITION_TABLE_NAME, SORT_FIELD));
             while (result.next()) {
-                posList.add(new position(result.getInt("id"), result.getString("positionName")));
+                posList.add(new Position(result.getInt("id"), result.getString("positionName")));
             }
 
         } catch (SQLException e) {
@@ -32,7 +29,7 @@ public class PositionMapper {
         return posList;
     }
 
-    public boolean insert(position position) {
+    public boolean insert(Position position) {
         try (Statement statement = conn.createStatement()) {
             ResultSet resultSet = statement.executeQuery(String.format(Constants.GET_MAX_ID_QUERY, Constants.POSITION_TABLE_NAME));
             int nextId = 0;
@@ -48,7 +45,7 @@ public class PositionMapper {
         return false;
     }
 
-    public boolean update(position position){
+    public boolean update(Position position){
         try (PreparedStatement updateStatement = conn.prepareStatement(String.format(UPDATE_QUERY, Constants.POSITION_TABLE_NAME));){
             updateStatement.setString(1, position.getPositionName());
             updateStatement.setInt(2, position.getId());

@@ -43,8 +43,6 @@ t
 Dsrc/main/java/org/example/visual/Individual/editIndividualFrame.java,0\6\06c1daade70f9ab72da668d3f65f7a0b6f4a86c3
 t
 Dsrc/main/java/org/example/visual/Individual/findIndividualFrame.java,3\e\3e742b8590619071fddc0f58a78f5bc2430956c0
-_
-/src/main/java/org/example/model/TableModel.java,7\1\71223337adee5c1f61a813862a445768caf3b455
 \
 ,src/main/java/org/example/model/employe.java,5\9\591e0d6d9acb71afd7a8185097e00615381e1c9d
 p
@@ -55,3 +53,9 @@ g
 7src/main/java/org/example/dataMapper/EmployeMapper.java,d\6\d6947e17c3fd642de04c59b240923524ba725436
 \
 ,src/main/java/org/example/model/Employe.java,f\7\f72603ced10e049c220df2022429d87ab903b38b
+p
+@src/main/java/org/example/visual/Employee/editEmployeeFrame.java,0\2\02b9c0d4ed6b82b73241ae86b461f4ea0de3424a
+]
+-src/main/java/org/example/model/Position.java,7\e\7e77b44c1b76ce63850f3c32e422d34cb221dae3
+a
+1src/main/java/org/example/model/MyTableModel.java,d\3\d39d6efd3185d96042ba501e35eebaa71d71ec1c

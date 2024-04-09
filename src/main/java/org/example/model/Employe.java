@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 
-public class Employe implements TableModel{
+public class Employe implements MyTableModel {
     private Integer id;
     private String name;
     private String positionName;
@@ -32,6 +32,12 @@ public class Employe implements TableModel{
 
     public Employe(Integer id, String name, String positionName, Date startDate, Date endDate) {
         this.id = id;
+        this.name = name;
+        this.positionName = positionName;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+    public Employe(String name, String positionName, Date startDate, Date endDate) {
         this.name = name;
         this.positionName = positionName;
         this.startDate = startDate;

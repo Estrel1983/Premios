@@ -1,7 +1,8 @@
 package org.example.visual.Position;
 
-import org.example.model.position;
+import org.example.model.Position;
 import org.example.visual.SuccessFrame;
+import org.example.visual.utils.Creater;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -13,7 +14,7 @@ import static org.example.dateOperations.positionsOperation.savePosition;
 
 
 public class editPositionFrame extends JFrame{
-    public editPositionFrame (position position){
+    public editPositionFrame (Position position){
         JPanel mainPanel = new JPanel();
         setName("Редактирование данных о должности");
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
@@ -34,22 +35,14 @@ public class editPositionFrame extends JFrame{
         mainPanel.add(indBox);
         mainPanel.add(Box.createVerticalStrut(10));
 
-        Box buttonBox = Box.createHorizontalBox();
-
-        buttonBox.add(Box.createHorizontalStrut(10));
-        JButton saveButton = new JButton("Сохранить");
-        buttonBox.add(saveButton);
-        buttonBox.add(Box.createHorizontalStrut(100));
-        JButton cancelButton = new JButton("Отмена");
-        buttonBox.add(cancelButton);
-        buttonBox.add(Box.createHorizontalStrut(10));
-        buttonBox.setBorder(new EmptyBorder(10, 10, 10, 10));
-
-
+        Box buttonBox = Creater.createSaveCancelBox();
         mainPanel.add(buttonBox);
 
         getContentPane().add(mainPanel);
         pack();
+
+        JButton cancelButton = (JButton) buttonBox.getComponent(3);
+        JButton saveButton = (JButton) buttonBox.getComponent(1);
 
         cancelButton.addActionListener(new ActionListener() {
             @Override

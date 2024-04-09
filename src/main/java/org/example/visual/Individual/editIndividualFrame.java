@@ -3,6 +3,7 @@ package org.example.visual.Individual;
 import com.toedter.calendar.JDateChooser;
 import org.example.model.Individual;
 import org.example.visual.SuccessFrame;
+import org.example.visual.utils.Creater;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -41,23 +42,15 @@ public class editIndividualFrame extends JFrame {
         mainPanel.add(indBox);
         mainPanel.add(Box.createVerticalStrut(10));
 
-        Box buttonBox = Box.createHorizontalBox();
-
-        buttonBox.add(Box.createHorizontalStrut(10));
-        JButton saveButton = new JButton("Сохранить");
-        buttonBox.add(saveButton);
-        buttonBox.add(Box.createHorizontalStrut(100));
-        JButton cancelButton = new JButton("Отмена");
-        buttonBox.add(cancelButton);
-        buttonBox.add(Box.createHorizontalStrut(10));
-        buttonBox.setBorder(new EmptyBorder(10, 10, 10, 10));
-
+        Box buttonBox = Creater.createSaveCancelBox();
 
         mainPanel.add(buttonBox);
 
         getContentPane().add(mainPanel);
         pack();
 
+        JButton cancelButton = (JButton) buttonBox.getComponent(3);
+        JButton saveButton = (JButton) buttonBox.getComponent(1);
         cancelButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {

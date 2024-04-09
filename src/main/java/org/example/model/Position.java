@@ -1,16 +1,14 @@
 package org.example.model;
 
-import java.text.SimpleDateFormat;
-
-public class position {
+public class Position {
     private Integer id;
     private String positionName;
 
-    public position(String positionName) {
+    public Position(String positionName) {
         this.positionName = positionName;
     }
 
-    public position(Integer id, String positionName) {
+    public Position(Integer id, String positionName) {
         this.id = id;
         this.positionName = positionName;
     }
