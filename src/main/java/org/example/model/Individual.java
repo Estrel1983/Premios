@@ -52,4 +52,9 @@ public class Individual {
     public Object[] toObject(){
         return new Object[]{this.name, (new SimpleDateFormat(Constants.DATE_FORMAT_FOR_TABLE)).format(this.birthDate)};
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

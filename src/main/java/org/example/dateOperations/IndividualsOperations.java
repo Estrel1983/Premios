@@ -48,4 +48,7 @@ public class IndividualsOperations {
     public static List<Individual> searchIndividualByName(String namePart){
         return individualMapper.selectByNamePart(namePart);
     }
+    public static List<Individual> searchUnemployed(){
+        return individualMapper.selectUnemployed();
+    }
 }

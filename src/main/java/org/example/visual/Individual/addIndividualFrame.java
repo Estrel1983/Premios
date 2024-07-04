@@ -2,6 +2,7 @@ package org.example.visual.Individual;
 
 
 import com.toedter.calendar.JDateChooser;
+import org.example.utils.Constants;
 import org.example.visual.SuccessFrame;
 
 import javax.swing.*;
@@ -45,7 +46,7 @@ public class addIndividualFrame extends JFrame {
         constr.gridy = 4;
         JDateChooser birthDate = new JDateChooser();
         birthDate.setLocale(new Locale("ru", "RU"));
-        birthDate.setDateFormatString(DATE_FORMAT);
+        birthDate.setDateFormatString(Constants.DATE_FORMAT_FOR_DATA_FIELD);
         addEmployeePanel.add(birthDate, constr);
 
         constr.gridx = 0;

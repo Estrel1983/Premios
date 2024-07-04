@@ -21,4 +21,15 @@ public class employeeOperations {
         }
         return empList;
     }
+
+    public static ArrayList<Employe> getClearList(){
+        if (empList == null){
+            errorFrame(Constants.SELECT_ERROR_MESSAGE);
+            throw new RuntimeException(Constants.SELECT_ERROR_MESSAGE);
+        }
+        ArrayList<Employe> emplClearList = new ArrayList<>();
+        for (TableModel model : empList)
+            emplClearList.add((Employe) model);
+        return  emplClearList;
+    }
 }

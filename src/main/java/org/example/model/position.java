@@ -33,4 +33,9 @@ public class position {
     public Object[] toObject(){
         return new Object[]{this.positionName};
     }
+
+    @Override
+    public String toString() {
+        return positionName;
+    }
 }
