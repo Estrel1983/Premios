@@ -10,6 +10,9 @@ import org.example.utils.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import java.awt.*;
+import java.awt.event.ItemEvent;
+import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Locale;
 
@@ -24,10 +27,14 @@ public class editEmployeeFrame extends JFrame {
         JLabel nameLabel = new JLabel("Имя сотрудника:");
         empBox.add(nameLabel);
         empBox.add(Box.createVerticalStrut(10));
-        JComboBox<Individual> individualComboBox = addIndividualComboBox(employe);
+        JComboBox<Individual> individualComboBox = addIndividualUnemployedComboBox(employe);
         empBox.add(individualComboBox);
+        Checkbox useAlreadyEmployedCheckBox = new Checkbox("   Показывать уже трудоустроеных");
+        useAlreadyEmployedCheckBox.addItemListener(alreadyEmployedListener(employe, individualComboBox, empBox));
+        empBox.add(useAlreadyEmployedCheckBox);
         empBox.add(Box.createHorizontalStrut(10));
         empBox.add(Box.createVerticalStrut(10));
+
 
         JLabel positionLabel = new JLabel("Должность:");
         empBox.add(positionLabel);
@@ -74,8 +81,30 @@ public class editEmployeeFrame extends JFrame {
         getContentPane().add(mainPanel);
         pack();
     }
+    private ItemListener alreadyEmployedListener (Employe employe, JComboBox<Individual> individualComboBox, Box empBox){
+        final JComboBox<Individual>[] comboBoxWrapper = new JComboBox[]{individualComboBox};
+        return new ItemListener() {
+            @Override
+            public void itemStateChanged(ItemEvent e) {
+                comboBoxWrapper[0].removeAllItems();
+                if (e.getStateChange() == ItemEvent.SELECTED) {
+                    ArrayList<Individual> individuals = IndividualsOperations.getList();
+                    for (Individual individual : individuals)
+                        comboBoxWrapper[0].addItem(individual);
+                    comboBoxWrapper[0].setSelectedItem(null);
+                } else if (e.getStateChange() == ItemEvent.DESELECTED) {
+                    ArrayList<Individual> individuals = new ArrayList<>(IndividualsOperations.searchUnemployed());
+                    for (Individual individual : individuals)
+                        comboBoxWrapper[0].addItem(individual);
+                    comboBoxWrapper[0].setSelectedItem(null);
+                }
+                empBox.revalidate();
+                empBox.repaint();
+            }
+        };
+    }
 
-    private JComboBox<Individual> addIndividualComboBox(Employe employe) {
+    private JComboBox<Individual> addIndividualUnemployedComboBox(Employe employe) {
         if (employe != null) {
             ArrayList<Individual> individuals = IndividualsOperations.getList();
             JComboBox<Individual> individualJComboBox = new JComboBox<>(individuals.toArray(new Individual[0]));
@@ -89,6 +118,7 @@ public class editEmployeeFrame extends JFrame {
             return individualJComboBox;
         }
     }
+
 
     private JComboBox<position> addPositionComboBox(Employe employe) {
 
