@@ -83,6 +83,7 @@ public class editEmployeeFrame extends JFrame {
     }
     private ItemListener alreadyEmployedListener (Employe employe, JComboBox<Individual> individualComboBox, Box empBox){
         final JComboBox<Individual>[] comboBoxWrapper = new JComboBox[]{individualComboBox};
+        //test
         return new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
