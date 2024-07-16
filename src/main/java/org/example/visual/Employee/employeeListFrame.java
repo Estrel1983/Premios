@@ -20,7 +20,7 @@ public class employeeListFrame extends JFrame {
     private DefaultTableModel model;
     public employeeListFrame(){
         JPanel mainPanel = new JPanel();
-        setName("Список Должностей");
+        setName("Список Работников");
         mainPanel.setLayout(new BoxLayout(mainPanel, BoxLayout.Y_AXIS));
         Box emplPanel = new Box(BoxLayout.Y_AXIS);
         JTable emplTable = Creater.createTableForClass(new Employe(), employeeOperations.getList());

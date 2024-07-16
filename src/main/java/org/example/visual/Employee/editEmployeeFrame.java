@@ -3,18 +3,26 @@ package org.example.visual.Employee;
 import com.toedter.calendar.JDateChooser;
 import org.example.dateOperations.IndividualsOperations;
 import org.example.dateOperations.positionsOperation;
+import org.example.exceptions.NonexistingEmployeeException;
 import org.example.model.Employe;
 import org.example.model.Individual;
 import org.example.model.position;
 import org.example.utils.Constants;
+import org.example.visual.utils.cancelButtonCreater;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.event.ItemEvent;
 import java.awt.event.ItemListener;
 import java.util.ArrayList;
 import java.util.Locale;
+import java.util.Optional;
+
+import static org.example.dateOperations.employeeOperations.saveEmployee;
+import static org.example.visual.ErrorFrame.errorFrame;
 
 public class editEmployeeFrame extends JFrame {
     public editEmployeeFrame(Employe employe) {
@@ -69,11 +77,12 @@ public class editEmployeeFrame extends JFrame {
         buttonBox.add(Box.createHorizontalStrut(10));
 
         JButton saveButton = new JButton("Сохранить");
+        saveButton.addActionListener(saveButtonListener(individualComboBox, positionJComboBox,
+                startDateChooser, endDateChooser));
         buttonBox.add(saveButton);
         buttonBox.add(Box.createHorizontalStrut(100));
 
-        JButton cancelButton = new JButton("Отмена");
-        buttonBox.add(cancelButton);
+        buttonBox.add(new cancelButtonCreater().createCancelButton());
         buttonBox.add(Box.createHorizontalStrut(10));
 
         mainPanel.add(buttonBox);
@@ -81,9 +90,30 @@ public class editEmployeeFrame extends JFrame {
         getContentPane().add(mainPanel);
         pack();
     }
+    private ActionListener saveButtonListener(JComboBox<Individual> ind, JComboBox<position> position,
+                                              JDateChooser startDate, JDateChooser endDate){
+        return new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if (ind.getSelectedItem() == null || position.getSelectedItem() == null || startDate.getDate() == null){
+                    errorFrame("Одно из полей не заполнено");
+                    return;
+                }
+                if (endDate.getDate() != null && endDate.getDate().before(startDate.getDate())){
+                    errorFrame("Дата приема на работу установлена позже даты увольнения");
+                    return;
+                }
+                try {
+                    saveEmployee(((Individual) ind.getSelectedItem()).getName(), ((position) position.getSelectedItem()).getPositionName() ,
+                            startDate.getDate(), Optional.ofNullable(endDate.getDate()));
+                } catch (NonexistingEmployeeException ex){
+                    errorFrame("Заполнена дата увольнения, однако работник с таким именем и должностью на работу не принимался");
+                }
+            }
+        };
+    }
     private ItemListener alreadyEmployedListener (Employe employe, JComboBox<Individual> individualComboBox, Box empBox){
         final JComboBox<Individual>[] comboBoxWrapper = new JComboBox[]{individualComboBox};
-        //test
         return new ItemListener() {
             @Override
             public void itemStateChanged(ItemEvent e) {
@@ -97,7 +127,7 @@ public class editEmployeeFrame extends JFrame {
                     ArrayList<Individual> individuals = new ArrayList<>(IndividualsOperations.searchUnemployed());
                     for (Individual individual : individuals)
                         comboBoxWrapper[0].addItem(individual);
-                    comboBoxWrapper[0].setSelectedItem(null);
+                    comboBoxWrapper[0].setSelectedItem(individuals.stream().filter(individual -> employe.getName().equals(individual.getName())).findFirst());
                 }
                 empBox.revalidate();
                 empBox.repaint();

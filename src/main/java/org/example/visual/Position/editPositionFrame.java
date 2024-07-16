@@ -2,10 +2,10 @@ package org.example.visual.Position;
 
 import org.example.model.position;
 import org.example.visual.SuccessFrame;
+import org.example.visual.utils.cancelButtonCreater;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -40,8 +40,7 @@ public class editPositionFrame extends JFrame{
         JButton saveButton = new JButton("Сохранить");
         buttonBox.add(saveButton);
         buttonBox.add(Box.createHorizontalStrut(100));
-        JButton cancelButton = new JButton("Отмена");
-        buttonBox.add(cancelButton);
+        buttonBox.add(new cancelButtonCreater().createCancelButton());
         buttonBox.add(Box.createHorizontalStrut(10));
         buttonBox.setBorder(new EmptyBorder(10, 10, 10, 10));
 
@@ -51,13 +50,6 @@ public class editPositionFrame extends JFrame{
         getContentPane().add(mainPanel);
         pack();
 
-        cancelButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                Window window = SwingUtilities.getWindowAncestor(cancelButton);
-                window.dispose();
-            }
-        });
         saveButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
