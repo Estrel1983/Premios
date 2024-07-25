@@ -1,6 +1,8 @@
 package org.example.dateOperations;
 
+import org.example.dataMapper.EmployeMapper;
 import org.example.dataMapper.PositionMapper;
+import org.example.datebase.columns.EmployeColumnsEnum;
 import org.example.model.position;
 import org.example.utils.Constants;
 
@@ -28,8 +30,13 @@ public class positionsOperation {
         return null;
     }
     public static void savePosition (position pos, String posName){
+        String oldPosName = pos.getPositionName();
         pos.setPositionName(posName);
         if (!postionMapper.update(pos)){
+            errorFrame(Constants.INSERT_ERROR_MESSAGE);
+            throw new RuntimeException(Constants.INSERT_ERROR_MESSAGE);
+        }
+        if (!(new EmployeMapper().updateByColumnValue(EmployeColumnsEnum.POS_NAME, oldPosName, posName))){
             errorFrame(Constants.INSERT_ERROR_MESSAGE);
             throw new RuntimeException(Constants.INSERT_ERROR_MESSAGE);
         }

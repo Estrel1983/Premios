@@ -8,6 +8,7 @@ import org.example.model.Employe;
 import org.example.model.Individual;
 import org.example.model.position;
 import org.example.utils.Constants;
+import org.example.visual.SuccessFrame;
 import org.example.visual.utils.cancelButtonCreater;
 
 import javax.swing.*;
@@ -106,6 +107,8 @@ public class editEmployeeFrame extends JFrame {
                 try {
                     saveEmployee(((Individual) ind.getSelectedItem()).getName(), ((position) position.getSelectedItem()).getPositionName() ,
                             startDate.getDate(), Optional.ofNullable(endDate.getDate()));
+                    new SuccessFrame();
+                    dispose();
                 } catch (NonexistingEmployeeException ex){
                     errorFrame("Заполнена дата увольнения, однако работник с таким именем и должностью на работу не принимался");
                 }
