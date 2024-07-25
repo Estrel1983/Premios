@@ -1,6 +1,8 @@
 package org.example.dateOperations;
 
+import org.example.dataMapper.EmployeMapper;
 import org.example.dataMapper.IndividualMapper;
+import org.example.datebase.columns.EmployeColumnsEnum;
 import org.example.model.Individual;
 import org.example.utils.Constants;
 
@@ -38,6 +40,12 @@ public class IndividualsOperations {
         return null;
     }
     public static void saveIndividual (Individual individual, String name, Date birthDate){
+            if (!name.equals(individual.getName())){
+                if(!new EmployeMapper().updateByColumnValue(EmployeColumnsEnum.NAME, individual.getName(), name)){
+                    errorFrame(Constants.INSERT_ERROR_MESSAGE);
+                    throw new RuntimeException(Constants.INSERT_ERROR_MESSAGE);
+                }
+            }
             individual.setName(name);
             individual.setBirthDate(birthDate);
             if(!individualMapper.update(individual)){

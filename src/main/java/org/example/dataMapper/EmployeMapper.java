@@ -1,5 +1,6 @@
 package org.example.dataMapper;
 
+import org.example.datebase.columns.EmployeColumnsEnum;
 import org.example.model.Employe;
 import org.example.model.TableModel;
 import org.example.utils.Constants;
@@ -9,6 +10,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.Optional;
 
 import static org.example.db.DateBaseOperation.getDbConnection;
 
@@ -17,6 +19,8 @@ public class EmployeMapper {
     private static final String SORT_FIELD = "name";
 
     private static final String INSERT_QUERY = "INSERT INTO %s (id, name, positionName, startDate) VALUES (?, ?, ?, ?)";
+    private static final String UPDATE_QUERY = "UPDATE %s SET endDate = ?, startDate = ? WHERE ID = ?";
+    private static final String UPDATE_COLUMN_QUERY = "UPDATE %1$s SET %2$s = ? WHERE %2$s = ?";
 
     public ArrayList<TableModel> selectAll() {
         ArrayList<TableModel> empList = new ArrayList<>();
@@ -39,7 +43,7 @@ public class EmployeMapper {
     public boolean insert(Employe employe) {
         int nextId = 0;
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
-        try (Statement st = conn.createStatement()){
+        try (Statement st = conn.createStatement()) {
             ResultSet resultSet = st.executeQuery(String.format(Constants.GET_MAX_ID_QUERY, Constants.EMPLOYEES_TABLE_NAME));
             if (resultSet.next())
                 nextId = resultSet.getInt(1) + 1;
@@ -47,22 +51,58 @@ public class EmployeMapper {
             //TODO
             return false;
         }
-        try (PreparedStatement insertSt = conn.prepareStatement(String.format(INSERT_QUERY, Constants.EMPLOYEES_TABLE_NAME));){
+        try (PreparedStatement insertSt = conn.prepareStatement(String.format(INSERT_QUERY, Constants.EMPLOYEES_TABLE_NAME));) {
             insertSt.setInt(1, nextId);
             insertSt.setString(2, employe.getName());
             insertSt.setString(3, employe.getPositionName());
             insertSt.setString(4, dateFormat.format(employe.getStartDate()));
-            if (insertSt.executeUpdate() == 1){
+            if (insertSt.executeUpdate() == 1) {
                 return true;
             }
-        }catch (SQLException e) {
+        } catch (SQLException e) {
             //TODO
             return false;
         }
         return false;
     }
 
-    public void update(Employe employe) {
+    public boolean update(Employe employe) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
+        try (PreparedStatement updateSt = conn.prepareStatement(String.format(UPDATE_QUERY, Constants.EMPLOYEES_TABLE_NAME))) {
+            updateSt.setString(1, dateFormat.format(employe.getEndDate()));
+            updateSt.setString(2, dateFormat.format(employe.getStartDate()));
+            updateSt.setInt(3, employe.getId());
+            if (updateSt.executeUpdate() == 1)
+                return true;
+        } catch (SQLException e) {
+            //TODO
+            return false;
+        }
+        return false;
+    }
 
+    public boolean updateByColumnValue(EmployeColumnsEnum columnName, String oldValue, String newValue) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
+        try (PreparedStatement updateSt = conn.prepareStatement(String.format(UPDATE_COLUMN_QUERY, Constants.EMPLOYEES_TABLE_NAME, columnName.getColumnName()))){
+          switch (columnName){
+              case NAME:
+              case POS_NAME:
+                  updateSt.setString(1, newValue);
+                  updateSt.setString(2, oldValue);
+                  break;
+              case STAR_DATE:
+              case END_DATE:
+                  updateSt.setString(1, dateFormat.format(newValue));
+                  updateSt.setString(2, dateFormat.format(oldValue));
+                  break;
+          }
+          if (updateSt.executeUpdate() == 1){
+              return true;
+          }
+        } catch (SQLException e) {
+            //TODO
+            return false;
+        }
+        return false;
     }
 }

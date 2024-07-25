@@ -9,6 +9,7 @@ import org.example.utils.Constants;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.Optional;
+import java.util.stream.Stream;
 
 import static org.example.visual.ErrorFrame.errorFrame;
 
@@ -26,6 +27,7 @@ public class employeeOperations {
     }
 
     public static ArrayList<Employe> getClearList(){
+        getList();
         if (empList == null){
             errorFrame(Constants.SELECT_ERROR_MESSAGE);
             throw new RuntimeException(Constants.SELECT_ERROR_MESSAGE);
@@ -43,10 +45,18 @@ public class employeeOperations {
                 errorFrame(Constants.INSERT_ERROR_MESSAGE);
                 throw new RuntimeException(Constants.INSERT_ERROR_MESSAGE);
             }
+
         }
         else {
-            employeMapper.update(getClearList().stream().filter(e -> name.equals(e.getName()) && position.equals(e.getPositionName()))
-                    .findFirst().orElseThrow(NonexistingEmployeeException::new));
+            if (!employeMapper.update(getClearList().stream().filter(e -> name.equals(e.getName()) && position.equals(e.getPositionName()))
+                    .findFirst().orElseThrow(NonexistingEmployeeException::new))){
+                errorFrame(Constants.INSERT_ERROR_MESSAGE);
+                throw new RuntimeException(Constants.INSERT_ERROR_MESSAGE);
+            }
         }
+    }
+    public static Employe sirchEmploye(String name, String posName){
+        ArrayList<Employe> list = getClearList();
+        return list.stream().filter(e -> name.equals(e.getName()) && posName.equals(e.getPositionName())).findFirst().orElse(null);
     }
 }
