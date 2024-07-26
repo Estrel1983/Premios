@@ -1,5 +1,6 @@
 package org.example.dataMapper;
 
+import org.example.dto.PremiosForPositions;
 import org.example.model.Individual;
 import org.example.model.position;
 import org.example.utils.Constants;
@@ -16,6 +17,10 @@ public class PositionMapper {
     private static final String INSERT_QUERY = "INSERT INTO %s (id, positionName) VALUES (%s, '%s')";
     private static final String UPDATE_QUERY = "UPDATE %s SET positionName = ? WHERE id = ?";
     private static final String SORT_FIELD = "positionName";
+    private static final String SELECT_ALL_WITH_PREM_QUERY = "SELECT p.positionName AS positionName," +
+            "pp.percent AS percent, pl.limitSum AS minLimit FROM position p " +
+            "LEFT JOIN premiosPercent pp ON p.positionName = pp.positionName" +
+            "LEFT JOIN premiosIncomLowLimit pl ON p.positionName = pl.positionName";
 
     public ArrayList<position> selectAll() {
         ArrayList<position> posList = new ArrayList<>();
@@ -58,5 +63,20 @@ public class PositionMapper {
             return false;
         }
         return false;
+    }
+
+    public ArrayList<PremiosForPositions> selectAllWithPremios() {
+        ArrayList<PremiosForPositions> posList = new ArrayList<>();
+        try (Statement statement = conn.createStatement()) {
+            ResultSet result = statement.executeQuery(String.format(SELECT_ALL_WITH_PREM_QUERY, Constants.POSITION_TABLE_NAME, SORT_FIELD));
+            while (result.next()) {
+                posList.add(new PremiosForPositions(result.getString("positionName"), result.getDouble("percent"), result.getInt("minLimit")));
+            }
+
+        } catch (SQLException e) {
+            return null;
+            //TODO
+        }
+        return posList;
     }
 }

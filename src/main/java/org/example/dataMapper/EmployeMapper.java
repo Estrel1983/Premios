@@ -9,8 +9,6 @@ import java.sql.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.Optional;
 
 import static org.example.db.DateBaseOperation.getDbConnection;
 
@@ -20,7 +18,6 @@ public class EmployeMapper {
 
     private static final String INSERT_QUERY = "INSERT INTO %s (id, name, positionName, startDate) VALUES (?, ?, ?, ?)";
     private static final String UPDATE_QUERY = "UPDATE %s SET endDate = ?, startDate = ? WHERE ID = ?";
-    private static final String UPDATE_COLUMN_QUERY = "UPDATE %1$s SET %2$s = ? WHERE %2$s = ?";
 
     public ArrayList<TableModel> selectAll() {
         ArrayList<TableModel> empList = new ArrayList<>();
@@ -83,7 +80,7 @@ public class EmployeMapper {
 
     public boolean updateByColumnValue(EmployeColumnsEnum columnName, String oldValue, String newValue) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(Constants.SQL_DATE_FORMAT);
-        try (PreparedStatement updateSt = conn.prepareStatement(String.format(UPDATE_COLUMN_QUERY, Constants.EMPLOYEES_TABLE_NAME, columnName.getColumnName()))){
+        try (PreparedStatement updateSt = conn.prepareStatement(String.format(Constants.UPDATE_SINGLE_COLUMN_QUERY, Constants.EMPLOYEES_TABLE_NAME, columnName.getColumnName()))){
           switch (columnName){
               case NAME:
               case POS_NAME:

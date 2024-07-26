@@ -69,6 +69,8 @@ public class positionListFrame extends JFrame {
         JTable table = new JTable();
         model = new DefaultTableModel();
         model.addColumn("Должность");
+        model.addColumn("Минимальная выручка");
+        model.addColumn("% от выручки");
         ArrayList<position> posList = getList();
         posList.stream().forEach(e -> model.addRow(e.toObject()));
         table.setModel(model);

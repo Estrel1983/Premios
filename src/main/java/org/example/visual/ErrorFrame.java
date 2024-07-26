@@ -1,7 +1,9 @@
 package org.example.visual;
 
+import javax.swing.*;
+
 public class ErrorFrame {
     public static void errorFrame(String message){
-        //TODO
+        JOptionPane.showMessageDialog(null, message, "Ошибка", JOptionPane.ERROR_MESSAGE);
     }
 }

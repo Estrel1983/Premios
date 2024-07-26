@@ -3,14 +3,14 @@ package org.example.model;
 public class PremiosPercent {
     private Integer id;
     private String positionName;
-    private Long percent;
+    private double percent;
 
-    public PremiosPercent(String positionName, Long percent) {
+    public PremiosPercent(String positionName, double percent) {
         this.positionName = positionName;
         this.percent = percent;
     }
 
-    public PremiosPercent(Integer id, String positionName, Long percent) {
+    public PremiosPercent(Integer id, String positionName, double percent) {
         this.id = id;
         this.positionName = positionName;
         this.percent = percent;
@@ -32,11 +32,11 @@ public class PremiosPercent {
         this.positionName = positionName;
     }
 
-    public Long getPercent() {
+    public double getPercent() {
         return percent;
     }
 
-    public void setPercent(Long percent) {
+    public void setPercent(Double percent) {
         this.percent = percent;
     }
 }
